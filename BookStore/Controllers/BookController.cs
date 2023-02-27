@@ -1,7 +1,12 @@
-﻿using BookStore.BookOperations.CreateBook;
+﻿using AutoMapper;
+using BookStore.BookOperations.CreateBook;
+using BookStore.BookOperations.DeleteBook;
 using BookStore.BookOperations.GetBooks;
+using BookStore.BookOperations.UpdateBook;
 using BookStore.DbOperations;
 using BookStore.Model;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
@@ -11,26 +16,40 @@ namespace BookStore.Controllers
     public class BookController : Controller
     {
         private readonly BookStoreContext _context;
+        private readonly IMapper _mapper;
 
-        public BookController(BookStoreContext context)
+        public BookController(BookStoreContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetBooks()
         {
-            GetBooksQuery query = new GetBooksQuery(_context);
+            GetBooksQuery query = new GetBooksQuery(_context, _mapper);
             var result = query.Handle();
             return Ok(result);
 
         }
         [HttpGet("{id}")]
 
-        public Book GetById(int id)
+        public IActionResult GetById(int id)
         {
-            Book? book = _context.Books.Where(x => x.Id == id).FirstOrDefault();
-            return book;
+            GetBooksQuery query = new GetBooksQuery(_context, _mapper);
+            query.BookId= id;
+            try
+            {
+                GetBooksValidator validator = new GetBooksValidator();
+                validator.ValidateAndThrow(query);
+                var result = query.Handle(id);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //[HttpGet]
@@ -43,13 +62,14 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody] CreateBookModel newBook)
         {
-            CreateBookCommand command = new CreateBookCommand(_context);
+            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
             command.Model = newBook;
             try
             {
+                CreateBookCommandValidator validator = new CreateBookCommandValidator();
+                validator.ValidateAndThrow(command);
                 command.Handle();
                 return Ok();
-
             }
             catch (Exception ex)
             {
@@ -58,32 +78,41 @@ namespace BookStore.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] Book updatedBook)
+        public IActionResult UpdateBook(int id, [FromBody] UpdateBookModel updatedBook)
         {
-            Book? book = _context.Books.FirstOrDefault(x => x.Id == updatedBook.Id);
-            if (book is null)
+
+            UpdateBookComman command = new UpdateBookComman(_context);
+            command.Model = updatedBook;
+            command.BookId= id;
+            try
             {
-                return BadRequest();
+                UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
+                validator.ValidateAndThrow(command);
+                command.Handle(id);
+                return Ok();
             }
-            book.Title = updatedBook.Title != default ? updatedBook.Title : book.Title;
-            book.GenreId = updatedBook.GenreId != default ? updatedBook.GenreId : book.GenreId;
-            book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
-            book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
-            _context.SaveChanges();
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
-            Book? book = _context.Books.FirstOrDefault(x => x.Id == id);
-            if (book is null)
+            DeleteBookCommand command = new DeleteBookCommand(_context);
+            command.BookId= id;
+            try
             {
-                return BadRequest();
+                DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
+                validator.ValidateAndThrow(command);
+                command.Handle(id);
+                return Ok();
             }
-            _context.Books.Remove(book);
-            _context.SaveChanges();
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

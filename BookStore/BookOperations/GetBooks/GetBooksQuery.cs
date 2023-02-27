@@ -1,4 +1,5 @@
-﻿using BookStore.Common;
+﻿using AutoMapper;
+using BookStore.Common;
 using BookStore.DbOperations;
 using BookStore.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -9,30 +10,53 @@ namespace BookStore.BookOperations.GetBooks
     public class GetBooksQuery
     {
         private readonly BookStoreContext _context;
+        private readonly IMapper _mapper;
+        public int BookId { get; set; }
 
-        public GetBooksQuery(BookStoreContext context)
+        public GetBooksQuery(BookStoreContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public List<BooksViewModel> Handle()
         {
             List<Book> bookList = _context.Books.OrderBy(x => x.Id).ToList();
-            List<BooksViewModel> vm = new List<BooksViewModel>();
-            foreach (var book in bookList)
-            {
-                vm.Add(new BooksViewModel()
-                {
-                    Title = book.Title,
-                    Genre = ((GenreEnum)(book.GenreId)).ToString(),
-                    PageCount = book.PageCount,
-                    PublishDate= book.PublishDate.ToShortDateString(),
-                });
-            }
+            List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(bookList);
+            //    new List<BooksViewModel>();
+            //foreach (var book in bookList)
+            //{
+            //    vm.Add(new BooksViewModel()
+            //    {
+            //        Title = book.Title,
+            //        Genre = ((GenreEnum)(book.GenreId)).ToString(),
+            //        PageCount = book.PageCount,
+            //        PublishDate = book.PublishDate.ToShortDateString(),
+            //    });
+            //}
 
             return vm;
         }
 
-        
+        public BooksViewModel Handle(int id)
+        {
+            Book book = _context.Books.FirstOrDefault(x => x.Id == id);
+            if (book is null)
+            {
+                throw new InvalidOperationException("Belirtilen ID'ye sahip kitap bulunmamaktadır.");
+            }
+            BooksViewModel vm = _mapper.Map<BooksViewModel>(book);
+            //    new BooksViewModel()
+            //{
+            //    Title = book.Title,
+            //    Genre = ((GenreEnum)(book.GenreId)).ToString(),
+            //    PageCount = book.PageCount,
+            //    PublishDate = book.PublishDate.ToShortDateString(),
+
+            //};
+            return vm;
+        }
+
+
     }
 }

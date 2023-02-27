@@ -1,5 +1,6 @@
 using BookStore.DbOperations;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<BookStoreContext>(x => x.UseInMemoryDatabase(databaseName: "BookStoreDb")); // Db context added to the configuraiton files
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
