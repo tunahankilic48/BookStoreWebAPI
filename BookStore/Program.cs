@@ -1,4 +1,5 @@
 using BookStore.DbOperations;
+using BookStore.MiddleWares;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -35,6 +36,12 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+// Middle Wares must be written after UseAuthorization before MapControllers
+
+app.UsecustomExceptionMiddle();
+
+
+
+app.MapControllers(); // It works lastly
 
 app.Run();

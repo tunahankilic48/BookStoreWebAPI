@@ -37,7 +37,7 @@ namespace BookStore.Controllers
         public IActionResult GetById(int id)
         {
             GetBooksQuery query = new GetBooksQuery(_context, _mapper);
-            query.BookId= id;
+            query.BookId = id;
             try
             {
                 GetBooksValidator validator = new GetBooksValidator();
@@ -83,7 +83,7 @@ namespace BookStore.Controllers
 
             UpdateBookComman command = new UpdateBookComman(_context);
             command.Model = updatedBook;
-            command.BookId= id;
+            command.BookId = id;
             try
             {
                 UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
@@ -101,7 +101,7 @@ namespace BookStore.Controllers
         public IActionResult DeleteBook(int id)
         {
             DeleteBookCommand command = new DeleteBookCommand(_context);
-            command.BookId= id;
+            command.BookId = id;
             try
             {
                 DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
