@@ -21,7 +21,7 @@ namespace BookStore.Application.BookOperations.GetBooks
 
         public List<BooksViewModel> Handle()
         {
-            List<Book> bookList = _context.Books.Include(x => x.Genre).OrderBy(x => x.Id).ToList();
+            List<Book> bookList = _context.Books.Include(x => x.Genre).Include(x=>x.Author).OrderBy(x => x.Id).ToList();
             List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(bookList);
             //    new List<BooksViewModel>();
             //foreach (var book in bookList)
