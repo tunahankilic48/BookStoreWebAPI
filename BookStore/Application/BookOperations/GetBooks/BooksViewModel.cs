@@ -2,6 +2,7 @@
 {
     public class BooksViewModel
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public int PageCount { get; set; }
         public string PublishDate { get; set; }

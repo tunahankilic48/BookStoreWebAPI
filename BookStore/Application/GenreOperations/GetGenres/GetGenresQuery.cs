@@ -18,7 +18,7 @@ namespace BookStore.Application.GenreOperations.GetGenres
 
         public List<GenresViewModel> Handle()
         {
-            List<Genre> genres = _context.Genres.Where(x=>x.IsActive).OrderBy(x=>x.Id).ToList();
+            List<Genre> genres = _context.Genres.Where(x => x.IsActive).OrderBy(x=>x.Id).ToList();
             List<GenresViewModel> gl = _mapper.Map<List<GenresViewModel>>(genres);
             return gl;
         }

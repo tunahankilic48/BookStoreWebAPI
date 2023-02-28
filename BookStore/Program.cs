@@ -40,7 +40,7 @@ app.UseAuthorization();
 
 // Middle Wares must be written after UseAuthorization before MapControllers
 
-app.UsecustomExceptionMiddle();
+//app.UsecustomExceptionMiddle();
 
 
 

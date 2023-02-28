@@ -21,7 +21,7 @@ namespace BookStore.Application.BookOperations.GetBooks
 
         public List<BooksViewModel> Handle()
         {
-            List<Book> bookList = _context.Books.OrderBy(x => x.Id).ToList();
+            List<Book> bookList = _context.Books.Include(x => x.Genre).OrderBy(x => x.Id).ToList();
             List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(bookList);
             //    new List<BooksViewModel>();
             //foreach (var book in bookList)
@@ -40,7 +40,7 @@ namespace BookStore.Application.BookOperations.GetBooks
 
         public BooksViewModel Handle(int id)
         {
-            Book book = _context.Books.FirstOrDefault(x => x.Id == id);
+            Book book = _context.Books.Include(x=>x.Genre).FirstOrDefault(x => x.Id == id);
             if (book is null)
             {
                 throw new InvalidOperationException("Belirtilen ID'ye sahip kitap bulunmamaktadır.");
