@@ -13,6 +13,7 @@ namespace BookStore.DbOperations
                 {
                     return;
                 }
+
                 context.Genres.AddRange(
                     new Genre
                     {
@@ -25,14 +26,33 @@ namespace BookStore.DbOperations
                     new Genre
                     {
                         Name = "Noval"
+                    });
+
+                context.Authors.AddRange(
+                    new Author
+                    {
+                        Name = "Eric Ries",
+                        BirthDate = new DateTime(1978, 09, 22)
+                    },
+                    new Author
+                    {
+                        Name = "Charlotte Perkins Gilman",
+                        BirthDate = new DateTime(1860, 07, 03)
+                    },
+                    new Author
+                    {
+                        Name = "Frank Herbert",
+                        BirthDate = new DateTime(1920, 10, 08)
                     }
-                );
+                    );
+
                 context.Books.AddRange(
                     new Book
                     {
                         // Id = 1,
                         Title = "Lean Startup",
                         GenreId = 1 /* Personal Growth */,
+                        AuthorId = 1 ,
                         PageCount = 200,
                         PublishDate = new DateTime(2001, 06, 12)
                     },
@@ -42,6 +62,7 @@ namespace BookStore.DbOperations
                         // Id = 2,
                         Title = "Herland",
                         GenreId = 2 /* Science Fiction*/,
+                        AuthorId = 2,
                         PageCount = 250,
                         PublishDate = new DateTime(2010, 05, 23)
                     },
@@ -51,6 +72,7 @@ namespace BookStore.DbOperations
                         // Id = 3,
                         Title = "Dune",
                         GenreId = 2 /* Science Fiction*/,
+                        AuthorId = 3,
                         PageCount = 540,
                         PublishDate = new DateTime(2001, 12, 21)
                     });
