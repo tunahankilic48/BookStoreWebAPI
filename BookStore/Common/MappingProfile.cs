@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BookStore.Application.BookOperations.CreateBook;
 using BookStore.Application.BookOperations.GetBooks;
+
 using BookStore.Application.GenreOperations.CreateGenre;
 using BookStore.Application.GenreOperations.GetGenres;
+
 using BookStore.Model;
 
 namespace BookStore.Common
