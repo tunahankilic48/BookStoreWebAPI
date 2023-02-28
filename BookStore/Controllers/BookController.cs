@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using BookStore.BookOperations.CreateBook;
-using BookStore.BookOperations.DeleteBook;
-using BookStore.BookOperations.GetBooks;
-using BookStore.BookOperations.UpdateBook;
+using BookStore.Application.BookOperations.CreateBook;
+using BookStore.Application.BookOperations.DeleteBook;
+using BookStore.Application.BookOperations.GetBooks;
+using BookStore.Application.BookOperations.UpdateBook;
 using BookStore.DbOperations;
 using BookStore.Model;
 using FluentValidation;

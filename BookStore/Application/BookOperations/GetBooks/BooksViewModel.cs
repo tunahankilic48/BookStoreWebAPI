@@ -1,4 +1,4 @@
-﻿namespace BookStore.BookOperations.GetBooks
+﻿namespace BookStore.Application.BookOperations.GetBooks
 {
     public class BooksViewModel
     {
