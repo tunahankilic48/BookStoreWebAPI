@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BookStore.BookOperations.CreateBook;
-using BookStore.BookOperations.GetBooks;
+using BookStore.Application.BookOperations.CreateBook;
+using BookStore.Application.BookOperations.GetBooks;
 using BookStore.Model;
 
 namespace BookStore.Common
