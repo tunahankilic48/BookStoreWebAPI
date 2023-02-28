@@ -2,7 +2,7 @@
 using BookStore.DbOperations;
 using BookStore.Model;
 
-namespace BookStore.BookOperations.CreateBook
+namespace BookStore.Application.BookOperations.CreateBook
 {
     public class CreateBookCommand
     {

@@ -1,6 +1,6 @@
-﻿namespace BookStore.BookOperations.UpdateBook
+﻿namespace BookStore.Application.BookOperations.CreateBook
 {
-    public class UpdateBookModel
+    public class CreateBookModel
     {
         public string Title { get; set; }
         public int GenreId { get; set; }

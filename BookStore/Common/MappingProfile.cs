@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using BookStore.Application.BookOperations.CreateBook;
 using BookStore.Application.BookOperations.GetBooks;
+
+using BookStore.Application.GenreOperations.CreateGenre;
+using BookStore.Application.GenreOperations.GetGenres;
+
 using BookStore.Model;
 
 namespace BookStore.Common
@@ -12,7 +16,8 @@ namespace BookStore.Common
             CreateMap<CreateBookModel, Book>();
             CreateMap<Book, BooksViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
 
-
+            CreateMap<Genre, GenresViewModel>();
+            CreateMap<CreateGenreModel, Genre>();
         }
     }
 }

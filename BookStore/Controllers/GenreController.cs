@@ -3,31 +3,33 @@ using BookStore.Application.BookOperations.CreateBook;
 using BookStore.Application.BookOperations.DeleteBook;
 using BookStore.Application.BookOperations.GetBooks;
 using BookStore.Application.BookOperations.UpdateBook;
+using BookStore.Application.GenreOperations.CreateGenre;
+using BookStore.Application.GenreOperations.DeleteGenre;
+using BookStore.Application.GenreOperations.GetGenres;
+using BookStore.Application.GenreOperations.UpdateGenre;
 using BookStore.DbOperations;
-using BookStore.Model;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
     [ApiController]
     [Route("[controller]s")]
-    public class BookController : Controller
+    public class GenreController : Controller
     {
         private readonly BookStoreContext _context;
         private readonly IMapper _mapper;
 
-        public BookController(BookStoreContext context, IMapper mapper)
+        public GenreController(BookStoreContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult GetBooks()
+        public IActionResult GetGenres()
         {
-            GetBooksQuery query = new GetBooksQuery(_context, _mapper);
+            GetGenresQuery query = new GetGenresQuery(_context, _mapper);
             var result = query.Handle();
             return Ok(result);
 
@@ -36,11 +38,11 @@ namespace BookStore.Controllers
 
         public IActionResult GetById(int id)
         {
-            GetBooksQuery query = new GetBooksQuery(_context, _mapper);
-            query.BookId = id;
+            GetGenresQuery query = new GetGenresQuery(_context, _mapper);
+            query.GendreId = id;
             try
             {
-                GetBooksValidator validator = new GetBooksValidator();
+                GetGenresValidator validator = new GetGenresValidator();
                 validator.ValidateAndThrow(query);
                 var result = query.Handle(id);
                 return Ok(result);
@@ -52,21 +54,14 @@ namespace BookStore.Controllers
             }
         }
 
-        //[HttpGet]
-        //public Book GetById([FromQuery] string id)
-        //{
-        //    Book? book = BookList.FirstOrDefault(x => x.Id == int.Parse(id));
-        //    return book;
-        //}
-
         [HttpPost]
-        public IActionResult AddBook([FromBody] CreateBookModel newBook)
+        public IActionResult AddGenre([FromBody] CreateGenreModel newGenre)
         {
-            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
-            command.Model = newBook;
+            CreateGenreCommand command = new CreateGenreCommand(_context, _mapper);
+            command.Model = newGenre;
             try
             {
-                CreateBookCommandValidator validator = new CreateBookCommandValidator();
+                CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
                 validator.ValidateAndThrow(command);
                 command.Handle();
                 return Ok();
@@ -78,15 +73,15 @@ namespace BookStore.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] UpdateBookModel updatedBook)
+        public IActionResult UpdateGenre(int id, [FromBody] UpdateGenreModel updatedGenre)
         {
 
-            UpdateBookComman command = new UpdateBookComman(_context);
-            command.Model = updatedBook;
-            command.BookId = id;
+            UpdateGenreCommand command = new UpdateGenreCommand(_context);
+            command.Model = updatedGenre;
+            command.GenreId = id;
             try
             {
-                UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
+                UpdateGenreCommandValidator validator = new UpdateGenreCommandValidator();
                 validator.ValidateAndThrow(command);
                 command.Handle(id);
                 return Ok();
@@ -98,10 +93,10 @@ namespace BookStore.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteBook(int id)
+        public IActionResult DeleteGenre(int id)
         {
-            DeleteBookCommand command = new DeleteBookCommand(_context);
-            command.BookId = id;
+            DeleteGenreCommand command = new DeleteGenreCommand(_context);
+            command.GenreId = id;
             try
             {
                 DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();

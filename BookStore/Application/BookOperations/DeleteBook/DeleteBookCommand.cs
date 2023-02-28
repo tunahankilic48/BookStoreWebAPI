@@ -1,17 +1,15 @@
-﻿using BookStore.BookOperations.CreateBook;
+﻿using BookStore.Application.BookOperations.CreateBook;
 using BookStore.DbOperations;
 using BookStore.Model;
 
-namespace BookStore.BookOperations.UpdateBook
+namespace BookStore.Application.BookOperations.DeleteBook
 {
-    public class UpdateBookComman
+    public class DeleteBookCommand
     {
-        public UpdateBookModel Model { get; set; }
+        private readonly BookStoreContext _context;
         public int BookId { get; set; }
 
-        private readonly BookStoreContext _context;
-
-        public UpdateBookComman(BookStoreContext context)
+        public DeleteBookCommand(BookStoreContext context)
         {
             _context = context;
         }
@@ -23,9 +21,9 @@ namespace BookStore.BookOperations.UpdateBook
             {
                 throw new InvalidOperationException("Girilen ID'ye sahip kitap bulunmamaktadır");
             }
-            book.Title = Model.Title != default ? Model.Title : book.Title;
-            book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;
+            _context.Books.Remove(book);
             _context.SaveChanges();
+
         }
     }
 }
