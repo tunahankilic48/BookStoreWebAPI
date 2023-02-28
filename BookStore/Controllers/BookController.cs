@@ -3,6 +3,7 @@ using BookStore.Application.BookOperations.CreateBook;
 using BookStore.Application.BookOperations.DeleteBook;
 using BookStore.Application.BookOperations.GetBooks;
 using BookStore.Application.BookOperations.UpdateBook;
+using BookStore.Application.GenreOperations.DeleteGenre;
 using BookStore.DbOperations;
 using BookStore.Model;
 using FluentValidation;
@@ -104,7 +105,7 @@ namespace BookStore.Controllers
             command.BookId = id;
             try
             {
-                DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
+                DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
                 validator.ValidateAndThrow(command);
                 command.Handle(id);
                 return Ok();

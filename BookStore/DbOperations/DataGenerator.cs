@@ -9,7 +9,7 @@ namespace BookStore.DbOperations
         {
             using (var context = new BookStoreContext(serviceProvider.GetRequiredService<DbContextOptions<BookStoreContext>>()))
             {
-                if (context.Books.Any())
+                if (context.Books.Any() && context.Genres.Any())
                 {
                     return;
                 }
