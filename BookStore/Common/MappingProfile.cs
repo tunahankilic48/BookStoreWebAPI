@@ -6,7 +6,7 @@ using BookStore.Application.BookOperations.GetBooks;
 
 using BookStore.Application.GenreOperations.CreateGenre;
 using BookStore.Application.GenreOperations.GetGenres;
-
+using BookStore.Application.UserOperations;
 using BookStore.Model;
 
 namespace BookStore.Common
@@ -24,6 +24,8 @@ namespace BookStore.Common
 
             CreateMap<Author, AuthorsViewModel>();
             CreateMap<CreateAuthorModel, Author>();
+
+            CreateMap<CreateUserModel,User>();
 
         }
     }

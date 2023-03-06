@@ -9,10 +9,12 @@ using BookStore.Application.GenreOperations.GetGenres;
 using BookStore.Application.GenreOperations.UpdateGenre;
 using BookStore.DbOperations;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]s")]
     public class GenreController : Controller
