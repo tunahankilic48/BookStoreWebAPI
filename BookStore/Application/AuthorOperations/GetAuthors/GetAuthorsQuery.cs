@@ -7,11 +7,11 @@ namespace BookStore.Application.AuthorOperations.GetAuthors
 {
     public class GetAuthorsQuery
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
         private readonly IMapper _mapper;
         public int AuthorId { get; set; }
 
-        public GetAuthorsQuery(BookStoreContext context, IMapper mapper)
+        public GetAuthorsQuery(IBookStoreContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
