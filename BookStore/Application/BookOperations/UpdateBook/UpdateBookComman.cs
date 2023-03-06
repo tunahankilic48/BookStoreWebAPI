@@ -9,9 +9,9 @@ namespace BookStore.Application.BookOperations.UpdateBook
         public UpdateBookModel Model { get; set; }
         public int BookId { get; set; }
 
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
 
-        public UpdateBookComman(BookStoreContext context)
+        public UpdateBookComman(IBookStoreContext context)
         {
             _context = context;
         }

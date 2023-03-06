@@ -5,10 +5,10 @@ namespace BookStore.Application.GenreOperations.DeleteGenre
 {
     public class DeleteGenreCommand
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
         public int GenreId { get; set; }
 
-        public DeleteGenreCommand(BookStoreContext context)
+        public DeleteGenreCommand(IBookStoreContext context)
         {
             _context = context;
         }

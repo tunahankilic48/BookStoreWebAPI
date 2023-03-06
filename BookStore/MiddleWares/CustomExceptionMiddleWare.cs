@@ -9,9 +9,10 @@ namespace BookStore.MiddleWares
     {
         private readonly RequestDelegate _next;
         private readonly ILoggerService _loggerService;
-        public CustomExceptionMiddleWare(RequestDelegate next)
+        public CustomExceptionMiddleWare(RequestDelegate next, ILoggerService loggerService)
         {
             _next = next;
+            _loggerService = loggerService;
         }
 
         public async Task Invoke(HttpContext context)

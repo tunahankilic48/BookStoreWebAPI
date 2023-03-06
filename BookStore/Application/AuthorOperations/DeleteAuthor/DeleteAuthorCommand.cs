@@ -5,10 +5,10 @@ namespace BookStore.Application.AuthorOperations.DeleteAuthor
 {
     public class DeleteAuthorCommand
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
         public int AuthorId { get; set; }
 
-        public DeleteAuthorCommand(BookStoreContext context)
+        public DeleteAuthorCommand(IBookStoreContext context)
         {
             _context = context;
         }

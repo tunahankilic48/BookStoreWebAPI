@@ -9,11 +9,11 @@ namespace BookStore.Application.BookOperations.GetBooks
 {
     public class GetBooksQuery
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
         private readonly IMapper _mapper;
         public int BookId { get; set; }
 
-        public GetBooksQuery(BookStoreContext context, IMapper mapper)
+        public GetBooksQuery(IBookStoreContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

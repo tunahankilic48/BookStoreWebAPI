@@ -17,10 +17,10 @@ namespace BookStore.Controllers
     [Route("[controller]s")]
     public class GenreController : Controller
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
         private readonly IMapper _mapper;
 
-        public GenreController(BookStoreContext context, IMapper mapper)
+        public GenreController(IBookStoreContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -16,10 +16,10 @@ namespace BookStore.Controllers
     [Route("[controller]s")]
     public class BookController : Controller
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreContext _context;
         private readonly IMapper _mapper;
 
-        public BookController(BookStoreContext context, IMapper mapper)
+        public BookController(IBookStoreContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

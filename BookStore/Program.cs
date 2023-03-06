@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<BookStoreContext>(x => x.UseInMemoryDatabase(databaseName: "BookStoreDb")); // Db context added to the configuraiton files
+builder.Services.AddScoped<IBookStoreContext>(provider => provider.GetService<BookStoreContext>());
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 
@@ -40,7 +41,7 @@ app.UseAuthorization();
 
 // Middle Wares must be written after UseAuthorization before MapControllers
 
-//app.UsecustomExceptionMiddle();
+app.UsecustomExceptionMiddle();
 
 
 
