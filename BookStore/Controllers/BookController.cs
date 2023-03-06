@@ -3,15 +3,14 @@ using BookStore.Application.BookOperations.CreateBook;
 using BookStore.Application.BookOperations.DeleteBook;
 using BookStore.Application.BookOperations.GetBooks;
 using BookStore.Application.BookOperations.UpdateBook;
-using BookStore.Application.GenreOperations.DeleteGenre;
 using BookStore.DbOperations;
-using BookStore.Model;
 using FluentValidation;
-using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]s")]
     public class BookController : Controller
